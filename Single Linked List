@@ -1,0 +1,244 @@
+//SINGLE LINKED LIST
+/*
+ ALL OPERATION has done in this linked list program..
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct slist {
+    int data;
+    struct slist* next;
+};
+
+typedef struct slist node;
+
+node* start = NULL; 
+
+    void create() {
+    node* tmp, * tmp1;
+    tmp = (node*)malloc(sizeof(node));
+    printf("Enter data: ");
+    scanf("%d", &(tmp->data));
+     tmp->next = NULL;
+    if (start == NULL) {
+        start = tmp;
+    } else {
+        tmp1 = start;
+        while (tmp1->next != NULL){                                                                               
+            tmp1 = tmp1->next;}
+        tmp1->next = tmp;
+    }
+}
+void display() {
+    node* tmp;
+    tmp = start;
+    if (tmp == NULL) {
+        printf("Empty..\n");
+    } else {
+        printf("Display : \n");
+        while (tmp != NULL) {
+
+           
+            printf("|%d|->", tmp->data);
+            tmp = tmp->next;
+        }
+        printf("NULL");
+    }
+}
+
+void firstinsert(){
+
+    node* temp;
+    temp=(node*)malloc(sizeof(node));
+   printf("\nEnter data for new node(insertion):\n");
+   scanf("%d",&(temp->data));
+   temp->next=start;
+start=temp;
+   printf("\nInsertion at first compleate sucssesfully.\n");
+}
+
+void lastinsert() {
+    node* tmp, * tmp1;
+    tmp = (node*)malloc(sizeof(node));
+    printf("\nEnter data for new node (last insertion):\n");
+    scanf("%d", &(tmp->data)); 
+
+    tmp->next = NULL; 
+
+    if (start == NULL) {
+      printf("List is empty.\n");
+    } else 
+    tmp1=start;
+     while(tmp1->next!=NULL){
+        tmp1->next=tmp1;
+     }
+     tmp1->next=tmp;
+
+    printf("Insertion at the end completed successfully.\n");
+}
+
+void apinsert() {
+    int pos;
+    int count = 0;
+    node* tmp, * tmp1;
+    tmp = (node*)malloc(sizeof(node));
+    tmp = start;
+    while (tmp != NULL) {
+        count++;
+        tmp = tmp->next;
+    }
+    printf("Enter the position:\n");
+    scanf("%d", &pos);
+    if (pos < 1 || pos > count + 1) {
+        printf("Invalid position.\n");
+    } else if (pos == 1) {
+        tmp = (node*)malloc(sizeof(node));
+        printf("Enter data for new node (insertion):\n");
+        scanf("%d", &(tmp->data));
+        tmp->next = start;
+        start = tmp;
+        printf("\nInsertion at the first position completed successfully.\n");
+    } else {
+         tmp = (node*)malloc(sizeof(node));
+          tmp1 = start;
+        printf("Enter data for new node (insertion):\n");
+        scanf("%d", &(tmp->data));
+        for (int i = 1; i < pos - 1; i++) {
+            tmp1 = tmp1->next;
+        }
+        tmp->next = tmp1->next;
+        tmp1->next = tmp;
+        printf("\nInsertion at position %d completed successfully.\n", pos);
+    }
+}
+
+
+void countnode() {
+    int count = 0;
+    node* temp;
+    temp = start;
+    while (temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+    printf("\nNumber of nodes in the list: %d\n", count);
+}
+void deletefirst() {
+    if (start == NULL) {
+        printf("List is empty or underflow.\n");
+    } else {
+        node* tmp;
+        tmp=start;
+        start = start->next;
+        free(tmp); 
+        printf("Deletion at the first position completed successfully.\n");
+    }
+}
+
+void deletelast() {
+    if (start == NULL) {
+        printf("\nList is empty.\n");
+    } else if (start->next == NULL) {
+       
+        free(start);
+        start = NULL;
+        printf("Deletion of the last node completed successfully.\n");
+    } else {
+        node* tmp,* tmp1;
+        tmp=start;
+        while (tmp->next != NULL) {
+            tmp1 = tmp;
+            tmp = tmp->next;
+        }
+        free(tmp);
+        tmp1->next = NULL; 
+        printf("Deletion of the last node completed successfully.\n");
+    }
+}
+void apdelete(){
+    int pos,count=0;
+    node* tmp,* tmp1;
+    tmp=start;
+    while(tmp!=NULL){
+        count++;
+        tmp=tmp->next;
+    }
+    printf("\nEnter position to delete:\n");
+    scanf("%d",&pos);
+    if(pos<1||pos>count){
+        printf("\nInvalid position.\n");
+    }else if(pos==1){
+    tmp=start;
+    start=tmp1;
+     tmp1=tmp->next;
+    free(tmp);
+
+    printf("Deletion is successfull in first position.");
+    }
+    else{
+        tmp=start;
+        for(int i=1;i<pos-1;i++){
+        tmp=tmp->next;
+        }
+        tmp1=tmp->next;
+        tmp->next=tmp1->next;
+        free(tmp1);
+        printf("Delete secsessfully at any position.");
+    }
+    }
+
+    void deleteEntireList() {
+     node* temp;
+      temp = start;
+    while (start != NULL) {
+        start = start->next;
+        free(temp);
+    }
+    printf("SUCCESSFULLY DELETED ALL NODES OF LINKED LIST\n");
+}
+
+//Main function
+
+int main() 
+{
+    int ch;
+  while(1){
+  {printf("\n");
+        printf("\n1->Create linked list\n2->Display linked list\n3->Insert at first operation\n4->Insertion at last operation\n5.Count the node\n6.Insertion at any given position\n7.Delete at first\n8.Delete at last\n9.Delete at any position\n10.Delete the entire list\n11.Exit\n");
+          
+        printf("Enter your choice number: ");
+        scanf("%d", &ch);
+    if(ch==1)
+    create();
+else if(ch==2)
+display();
+else if(ch==3)
+firstinsert();
+else if(ch==4)
+lastinsert();
+else if(ch==5)
+countnode();
+else if(ch==6)
+apinsert();
+else if(ch==7)
+    deletefirst();
+else if(ch==8)
+   deletelast();
+else if(ch==9)
+apdelete();
+else if(ch==10)
+deleteEntireList();
+else if(ch==11)
+exit(0);
+else                       //call all function
+{
+printf("Wronng choice.");
+         }
+    }
+}
+return 0;
+}
+
+//Thank You..
+    
